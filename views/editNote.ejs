@@ -1,0 +1,273 @@
+<%- include("partials/header") %>
+    <section class="note-form-page">
+        <div class="note-form-card">
+            <!-- ============================================= -->
+            <!-- PAGE HEADER -->
+            <!-- ============================================= -->
+            <div class="note-form-header">
+                <p class="eyebrow">
+                    EDIT NOTE
+                </p>
+                <h1>
+                    Edit Your Note
+                </h1>
+                <p>
+                    Make your changes and save when you're finished.
+                </p>
+            </div>
+            <!-- ============================================= -->
+            <!-- ERROR MESSAGE -->
+            <!-- ============================================= -->
+            <% if (error) { %>
+                <div class="form-error" role="alert">
+                    <%= error %>
+                </div>
+                <% } %>
+                    <!-- ============================================= -->
+                    <!-- NOTE FORM -->
+                    <!-- ============================================= -->
+                    <form id="note-form" class="note-form" action="/notes/<%= note._id %>/edit" method="POST">
+                        <div class="form-group">
+                            <label for="title">
+                                Title
+                            </label>
+                            <input type="text" id="title" name="title" value="<%= note.title %>" minlength="3"
+                                maxlength="150" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editor">
+                                Content
+                            </label>
+                            <div id="editor"></div>
+                            <input type="hidden" id="content" name="content">
+                            <!-- Sanitized note content used to initialize Quill -->
+                            <div id="editor-data" hidden><%- note.content %></div>
+                        </div>
+                        <!-- =========================================== -->
+                        <!-- FORM ACTIONS -->
+                        <!-- =========================================== -->
+                        <div class="note-form-actions">
+                            <a href="/notes/<%= note._id %>" class="button button-secondary">
+                                Cancel
+                            </a>
+                            <button type="submit" class="button button-primary">
+                                Save Changes
+                            </button>
+                        </div>
+                    </form>
+        </div>
+    </section>
+    <!-- ================================================= -->
+    <!-- QUILL EDITOR -->
+    <!-- ================================================= -->
+    <script src="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.js"></script>
+    <script>
+        const quill = new Quill(
+            "#editor",
+            {
+                theme: "snow",
+                placeholder:
+                    "Start writing your note...",
+                modules: {
+                    toolbar: [
+                        [
+                            {
+                                header: [
+                                    1,
+                                    2,
+                                    3,
+                                    false
+                                ]
+                            }
+                        ],
+
+                        [
+                            "bold",
+                            "italic",
+                            "underline"
+                        ],
+
+                        [
+                            {
+                                list: "ordered"
+                            },
+                            {
+                                list: "bullet"
+                            }
+                        ],
+
+                        [
+                            "link",
+                            "image"
+                        ],
+
+                        ["clean"]
+                    ]
+                }
+            }
+        );
+
+        // Add tooltips to editor controls
+        const linkButton =
+            document.querySelector(".ql-link");
+
+        if (linkButton) {
+            linkButton.setAttribute(
+                "title",
+                "Add link"
+            );
+        }
+
+        const imageButton =
+            document.querySelector(".ql-image");
+
+        if (imageButton) {
+            imageButton.setAttribute(
+                "title",
+                "Upload image"
+            );
+        }
+
+        const cleanButton =
+            document.querySelector(".ql-clean");
+
+        if (cleanButton) {
+            cleanButton.setAttribute(
+                "title",
+                "Clear formatting"
+            );
+        }
+
+        // ==================================================
+        // LOAD EXISTING CONTENT
+        // ==================================================
+        const editorData =
+            document.querySelector(
+                "#editor-data"
+            );
+
+        const existingContent =
+            editorData.innerHTML;
+
+        quill.clipboard.dangerouslyPasteHTML(
+            existingContent
+        );
+        // ==================================================
+        // IMAGE UPLOAD
+        // ==================================================
+
+        const toolbar =
+            quill.getModule("toolbar");
+
+        toolbar.addHandler(
+            "image",
+            () => {
+                const input =
+                    document.createElement("input");
+
+                input.setAttribute(
+                    "type",
+                    "file"
+                );
+
+                input.setAttribute(
+                    "accept",
+                    "image/jpeg,image/png,image/webp,image/gif"
+                );
+
+                input.click();
+
+                input.onchange = async () => {
+                    const file = input.files[0];
+
+                    if (!file) {
+                        return;
+                    }
+
+                    // Keep client-side validation consistent
+                    // with the Multer upload limit.
+                    const maxFileSize =
+                        2 * 1024 * 1024;
+
+                    if (file.size > maxFileSize) {
+                        alert(
+                            "Image is too large. Maximum file size is 2 MB."
+                        );
+
+                        return;
+                    }
+
+                    const formData =
+                        new FormData();
+
+                    formData.append(
+                        "image",
+                        file
+                    );
+
+                    try {
+                        const response =
+                            await fetch(
+                                "/notes/<%= note._id %>/attachments/images",
+                                {
+                                    method: "POST",
+                                    body: formData,
+                                }
+                            );
+
+                        const data =
+                            await response.json();
+
+                        if (!response.ok) {
+                            throw new Error(
+                                data.message ||
+                                "Image upload failed."
+                            );
+                        }
+
+                        const range =
+                            quill.getSelection(true);
+
+                        quill.insertEmbed(
+                            range.index,
+                            "image",
+                            data.url
+                        );
+
+                        quill.setSelection(
+                            range.index + 1
+                        );
+
+                    } catch (error) {
+                        console.error(
+                            "Image upload error:",
+                            error
+                        );
+
+                        alert(error.message);
+                    }
+                };
+            }
+        );
+        // ==================================================
+        // FORM SUBMISSION
+        // ==================================================
+        const noteForm =
+            document.querySelector(
+                "#note-form"
+            );
+
+        const contentInput =
+            document.querySelector(
+                "#content"
+            );
+
+        noteForm.addEventListener(
+            "submit",
+            () => {
+                contentInput.value =
+                    quill.root.innerHTML;
+            }
+        );
+    </script>
+    <%- include("partials/footer") %>

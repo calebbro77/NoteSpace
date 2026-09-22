@@ -1,0 +1,32 @@
+<%- include("partials/header") %>
+    <section class="error-page">
+        <div class="error-card">
+            <!-- ============================================= -->
+            <!-- ERROR MESSAGE -->
+            <!-- ============================================= -->
+            <p class="eyebrow">
+                SOMETHING WENT WRONG
+            </p>
+            <h1>
+                <%= message %>
+            </h1>
+            <% if (user) { %>
+                <p>
+                    Return to your dashboard to continue working with your notes.
+                </p>
+                <a href="/dashboard" class="button button-primary">
+                    <i data-lucide="arrow-left"></i>
+                    Back to Dashboard
+                </a>
+                <% } else { %>
+                    <p>
+                        Return to the home page and try again.
+                    </p>
+                    <a href="/" class="button button-primary">
+                        <i data-lucide="arrow-left"></i>
+                        Back to Home
+                    </a>
+                    <% } %>
+        </div>
+    </section>
+    <%- include("partials/footer") %>

@@ -1,0 +1,68 @@
+<%- include("partials/header") %>
+  <section class="auth-page">
+    <div class="auth-card">
+      <!-- ============================================= -->
+      <!-- REGISTRATION HEADER -->
+      <!-- ============================================= -->
+      <div class="auth-header">
+        <p class="eyebrow">
+          CREATE YOUR ACCOUNT
+        </p>
+        <h1>
+          Join NoteSpace
+        </h1>
+        <p>
+          Create private notes and share ideas with others.
+        </p>
+      </div>
+      <!-- ============================================= -->
+      <!-- ERROR MESSAGE -->
+      <!-- ============================================= -->
+      <% if (typeof error !=="undefined" ) { %>
+        <div class="form-error" role="alert">
+          <%= error %>
+        </div>
+        <% } %>
+          <!-- ============================================= -->
+          <!-- REGISTRATION FORM -->
+          <!-- ============================================= -->
+          <form class="auth-form" action="/register" method="POST">
+            <div class="form-group">
+              <label for="username">
+                Username
+              </label>
+              <input type="text" id="username" name="username" placeholder="Choose a username" autocomplete="username"
+                minlength="3" maxlength="50" required>
+            </div>
+            <div class="form-group">
+              <label for="email">
+                Email
+              </label>
+              <input type="email" id="email" name="email" placeholder="Enter your email" autocomplete="email"
+                minlength="5" maxlength="100" required>
+            </div>
+            <div class="form-group">
+              <label for="password">
+                Password
+              </label>
+              <input type="password" id="password" name="password" placeholder="Create a password"
+                autocomplete="new-password" minlength="8" pattern="(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}"
+                title="Password must be at least 8 characters long and contain at least one letter and one number."
+                required>
+              <p class="form-hint">
+                At least 8 characters with one letter and one number.
+              </p>
+            </div>
+            <button type="submit" class="button button-primary">
+              Create Account
+            </button>
+          </form>
+          <p class="auth-switch">
+            Already have an account?
+            <a href="/login">
+              Log in
+            </a>
+          </p>
+    </div>
+  </section>
+  <%- include("partials/footer") %>

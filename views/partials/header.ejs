@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= typeof title !=="undefined" ? `${title} | NoteSpace` : "NoteSpace" %>
+    </title>
+    <!-- Main stylesheet -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- Quill rich-text editor styles -->
+    <link href="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.snow.css" rel="stylesheet">
+</head>
+
+<body>
+    <% if (user) { %>
+        <!-- ============================================= -->
+        <!-- AUTHENTICATED HEADER -->
+        <!-- ============================================= -->
+        <header class="app-header">
+            <a href="/dashboard" class="app-logo">
+                <span class="logo-mark">N</span>
+                <span>NoteSpace</span>
+            </a>
+            <nav class="top-navigation" aria-label="Main navigation">
+                <a href="/dashboard">
+                    Dashboard
+                </a>
+                <a href="/explore">
+                    Explore
+                </a>
+                <a href="/notes/new" class="mobile-navigation-link">
+                    New Note
+                </a>
+                <form action="/logout" method="POST" class="mobile-navigation-form">
+                    <button type="submit" class="mobile-navigation-button">
+                        Logout
+                    </button>
+                </form>
+            </nav>
+            <div class="user-menu">
+                <div class="user-avatar">
+                    <i data-lucide="user"></i>
+                </div>
+                <span>
+                    <%= user.username %>
+                </span>
+            </div>
+        </header>
+        <!-- ============================================= -->
+        <!-- SIDEBAR -->
+        <!-- ============================================= -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <span class="sidebar-label">
+                    Main
+                </span>
+                <a href="/dashboard" class="sidebar-link">
+                    <i data-lucide="house"></i>
+                    Home
+                </a>
+                <a href="/dashboard" class="sidebar-link">
+                    <i data-lucide="notebook"></i>
+                    My Notes
+                </a>
+                <a href="/explore" class="sidebar-link">
+                    <i data-lucide="globe"></i>
+                    Explore
+                </a>
+                <a href="/notes/new" class="sidebar-link">
+                    <i data-lucide="plus"></i>
+                    New Note
+                </a>
+            </div>
+            <!-- =========================================== -->
+            <!-- SIDEBAR ACCOUNT ACTIONS -->
+            <!-- =========================================== -->
+            <div class="sidebar-bottom">
+                <form action="/logout" method="POST">
+                    <button type="submit" class="sidebar-link sidebar-button">
+                        <i data-lucide="log-out"></i>
+                        Logout
+                    </button>
+                </form>
+            </div>
+        </aside>
+        <!-- ============================================= -->
+        <!-- AUTHENTICATED PAGE CONTENT -->
+        <!-- ============================================= -->
+        <main class="app-content">
+            <% } else { %>
+                <!-- ============================================= -->
+                <!-- PUBLIC HEADER -->
+                <!-- ============================================= -->
+                <header class="public-header">
+                    <a href="/" class="app-logo">
+                        <span class="logo-mark">N</span>
+                        <span>NoteSpace</span>
+                    </a>
+                    <nav class="public-navigation" aria-label="Public navigation">
+                        <a href="/">
+                            Home
+                        </a>
+                        <a href="/login">
+                            Login
+                        </a>
+                        <a href="/register" class="button button-primary">
+                            Register
+                        </a>
+                    </nav>
+                </header>
+                <!-- ============================================= -->
+                <!-- PUBLIC PAGE CONTENT -->
+                <!-- ============================================= -->
+                <main class="public-content">
+                    <% } %>

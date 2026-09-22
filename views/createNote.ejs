@@ -1,0 +1,165 @@
+<%- include("partials/header") %>
+    <section class="note-form-page">
+        <div class="note-form-card">
+            <!-- ============================================= -->
+            <!-- PAGE HEADER -->
+            <!-- ============================================= -->
+            <div class="note-form-header">
+                <p class="eyebrow">
+                    NEW NOTE
+                </p>
+                <h1>
+                    Create a Note
+                </h1>
+                <p>
+                    Capture an idea, reminder, or anything else you want to keep.
+                </p>
+            </div>
+            <!-- ============================================= -->
+            <!-- ERROR MESSAGE -->
+            <!-- ============================================= -->
+            <% if (error) { %>
+                <div class="form-error" role="alert">
+                    <%= error %>
+                </div>
+                <% } %>
+                    <!-- ============================================= -->
+                    <!-- NOTE FORM -->
+                    <!-- ============================================= -->
+                    <form id="note-form" action="/notes/new" method="POST" class="note-form">
+                        <div class="form-group">
+                            <label for="title">
+                                Title
+                            </label>
+                            <input type="text" id="title" name="title" placeholder="Enter a note title"
+                                value="<%= formData.title %>" minlength="3" maxlength="150" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editor">
+                                Content
+                            </label>
+                            <div id="editor"></div>
+                            <input type="hidden" id="content" name="content">
+                            <!-- Sanitized content used to initialize Quill -->
+                            <div id="editor-data" hidden><%- formData.content %></div>
+                        </div>
+                        <!-- =========================================== -->
+                        <!-- FORM ACTIONS -->
+                        <!-- =========================================== -->
+                        <div class="note-form-actions">
+                            <a href="/dashboard" class="button button-secondary">
+                                Cancel
+                            </a>
+                            <button type="submit" class="button button-primary">
+                                Create Note
+                            </button>
+                        </div>
+                    </form>
+        </div>
+    </section>
+    <!-- ================================================= -->
+    <!-- QUILL EDITOR -->
+    <!-- ================================================= -->
+    <script src="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.js"></script>
+    <script>
+        const quill = new Quill(
+            "#editor",
+            {
+                theme: "snow",
+
+                placeholder:
+                    "Start writing your note...",
+
+                modules: {
+                    toolbar: [
+                        [
+                            {
+                                header: [
+                                    1,
+                                    2,
+                                    3,
+                                    false
+                                ]
+                            }
+                        ],
+
+                        [
+                            "bold",
+                            "italic",
+                            "underline"
+                        ],
+
+                        [
+                            {
+                                list: "ordered"
+                            },
+                            {
+                                list: "bullet"
+                            }
+                        ],
+
+                        ["link"],
+
+                        ["clean"]
+                    ]
+                }
+            }
+        );
+
+        // Add tooltips to editor controls
+
+        const linkButton =
+            document.querySelector(".ql-link");
+
+        if (linkButton) {
+            linkButton.setAttribute(
+                "title",
+                "Add link"
+            );
+        }
+
+        const cleanButton =
+            document.querySelector(".ql-clean");
+
+        if (cleanButton) {
+            cleanButton.setAttribute(
+                "title",
+                "Clear formatting"
+            );
+        }
+        
+        // ==================================================
+        // RESTORE EXISTING FORM CONTENT
+        // ==================================================
+        const editorData =
+            document.querySelector(
+                "#editor-data"
+            );
+
+        if (editorData.innerHTML.trim()) {
+            quill.root.innerHTML =
+                editorData.innerHTML;
+        }
+
+        // ==================================================
+        // FORM SUBMISSION
+        // ==================================================
+        const noteForm =
+            document.querySelector(
+                "#note-form"
+            );
+
+        const contentInput =
+            document.querySelector(
+                "#content"
+            );
+
+        noteForm.addEventListener(
+            "submit",
+            () => {
+                contentInput.value =
+                    quill.root.innerHTML;
+            }
+        );
+    </script>
+    <%- include("partials/footer") %>

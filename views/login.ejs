@@ -1,0 +1,56 @@
+<%- include("partials/header") %>
+    <section class="auth-page">
+        <div class="auth-card">
+            <!-- ============================================= -->
+            <!-- LOGIN HEADER -->
+            <!-- ============================================= -->
+            <div class="auth-header">
+                <p class="eyebrow">
+                    WELCOME BACK
+                </p>
+                <h1>
+                    Log in to NoteSpace
+                </h1>
+                <p>
+                    Access your private notes and shared ideas.
+                </p>
+            </div>
+            <!-- ============================================= -->
+            <!-- ERROR MESSAGE -->
+            <!-- ============================================= -->
+            <% if (typeof error !=="undefined" ) { %>
+                <div class="form-error" role="alert">
+                    <%= error %>
+                </div>
+                <% } %>
+                    <!-- ============================================= -->
+                    <!-- LOGIN FORM -->
+                    <!-- ============================================= -->
+                    <form class="auth-form" action="/login" method="POST">
+                        <div class="form-group">
+                            <label for="username">
+                                Username
+                            </label>
+                            <input type="text" id="username" name="username" placeholder="Enter your username"
+                                autocomplete="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">
+                                Password
+                            </label>
+                            <input type="password" id="password" name="password" placeholder="Enter your password"
+                                autocomplete="current-password" required>
+                        </div>
+                        <button type="submit" class="button button-primary">
+                            Log In
+                        </button>
+                    </form>
+                    <p class="auth-switch">
+                        Don't have an account?
+                        <a href="/register">
+                            Create one
+                        </a>
+                    </p>
+        </div>
+    </section>
+    <%- include("partials/footer") %>

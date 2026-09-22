@@ -1,0 +1,75 @@
+<%- include("partials/header") %>
+    <section class="explore-page">
+        <!-- ============================================= -->
+        <!-- PAGE HEADER -->
+        <!-- ============================================= -->
+        <div class="page-heading">
+            <div>
+                <p class="eyebrow">
+                    COMMUNITY
+                </p>
+                <h1>
+                    Explore Notes
+                </h1>
+                <p class="page-description">
+                    Discover ideas shared by the NoteSpace community.
+                </p>
+            </div>
+        </div>
+        <!-- ============================================= -->
+        <!-- PUBLISHED NOTES -->
+        <!-- ============================================= -->
+        <% if (notes.length===0) { %>
+            <!-- Empty state -->
+            <div class="empty-state">
+                <i data-lucide="globe"></i>
+                <h2>
+                    No published notes yet
+                </h2>
+                <p>
+                    Published notes from the community will appear here.
+                </p>
+                <a href="/notes/new" class="button button-primary">
+                    <i data-lucide="plus"></i>
+                    Create a Note
+                </a>
+            </div>
+            <% } else { %>
+                <!-- Published note grid -->
+                <div class="notes-grid">
+                    <% notes.forEach((note)=> { %>
+                        <article class="note-card">
+                            <div class="note-card-header">
+                                <span class="status-badge published">
+                                    <i data-lucide="globe"></i>
+                                    Published
+                                </span>
+                                <span class="note-author">
+                                    By <%= note.owner.username %>
+                                </span>
+                            </div>
+                            <h2>
+                                <%= note.title %>
+                            </h2>
+                            <p class="note-preview">
+                                <%= note.preview.length> 160
+                                    ? note.preview.substring(0, 160) + "..."
+                                    : note.preview
+                                    %>
+                            </p>
+                            <div class="note-card-footer">
+                                <span>
+                                    Updated
+                                    <%= note.updatedAt.toLocaleDateString() %>
+                                </span>
+                                <a href="/notes/<%= note._id %>" class="note-link">
+                                    Open Note
+                                    <i data-lucide="arrow-right"></i>
+                                </a>
+                            </div>
+                        </article>
+                        <% }); %>
+                </div>
+                <% } %>
+    </section>
+    <%- include("partials/footer") %>

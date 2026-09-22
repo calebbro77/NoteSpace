@@ -1,0 +1,35 @@
+{
+  "name": "notespace",
+  "version": "1.0.0",
+  "description": "A full-stack note-taking application with authentication, rich-text editing, publishing, contributions, and image attachments.",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "notes",
+    "express",
+    "mongodb",
+    "mongoose",
+    "ejs"
+  ],
+  "author": "Caleb Gaudio",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^17.4.2",
+    "ejs": "^6.0.1",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.9.4",
+    "morgan": "^1.11.0",
+    "multer": "^2.4.0",
+    "sanitize-html": "^2.17.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

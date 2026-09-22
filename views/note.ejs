@@ -1,0 +1,138 @@
+<%- include("partials/header") %>
+    <section class="note-page">
+        <!-- ============================================= -->
+        <!-- NOTE HEADER -->
+        <!-- ============================================= -->
+        <div class="note-page-header">
+            <a href="<%= isOwner ? '/dashboard' : '/explore' %>" class="back-link">
+                <i data-lucide="arrow-left"></i>
+                <%= isOwner ? "Back to Dashboard" : "Back to Explore" %>
+            </a>
+            <div class="note-meta">
+                <% if (note.isPublished) { %>
+                    <span class="status-badge published">
+                        <i data-lucide="globe"></i>
+                        Published
+                    </span>
+                    <% } else { %>
+                        <span class="status-badge private">
+                            <i data-lucide="lock"></i>
+                            Private
+                        </span>
+                        <% } %>
+                            <span>
+                                By <%= note.owner.username %>
+                            </span>
+            </div>
+        </div>
+        <!-- ============================================= -->
+        <!-- NOTE CONTENT -->
+        <!-- ============================================= -->
+        <article class="note-detail">
+            <h1>
+                <%= note.title %>
+            </h1>
+            <p class="note-date">
+                Last updated:
+                <%= note.updatedAt.toLocaleDateString() %>
+            </p>
+            <div class="note-content">
+                <%- note.content %>
+            </div>
+        </article>
+        <!-- ============================================= -->
+        <!-- CONTRIBUTIONS -->
+        <!-- ============================================= -->
+        <% if (note.isPublished) { %>
+            <section class="contributions-section">
+                <div class="contributions-heading">
+                    <div>
+                        <p class="eyebrow">
+                            COLLABORATION
+                        </p>
+                        <h2>
+                            Contributions
+                        </h2>
+                    </div>
+                    <span class="contribution-count">
+                        <%= note.contributions.length %>
+                    </span>
+                </div>
+                <% if (note.contributions.length===0) { %>
+                    <div class="contributions-empty">
+                        <i data-lucide="messages-square"></i>
+                        <p>
+                            No contributions yet. Be the first to add an idea.
+                        </p>
+                    </div>
+                    <% } else { %>
+                        <div class="contributions-list">
+                            <% note.contributions.forEach((contribution)=> { %>
+                                <article class="contribution-card">
+                                    <div class="contribution-meta">
+                                        <span class="contribution-author">
+                                            <i data-lucide="user"></i>
+                                            <%= contribution.contributor.username %>
+                                        </span>
+                                        <span>
+                                            <%= contribution.createdAt.toLocaleDateString() %>
+                                        </span>
+                                    </div>
+                                    <p class="contribution-content">
+                                        <%= contribution.content %>
+                                    </p>
+                                </article>
+                                <% }); %>
+                        </div>
+                        <% } %>
+                            <!-- =========================================== -->
+                            <!-- ADD CONTRIBUTION -->
+                            <!-- =========================================== -->
+                            <form action="/notes/<%= note._id %>/contributions" method="POST" class="contribution-form">
+                                <label for="contribution">
+                                    Add a contribution
+                                </label>
+                                <textarea id="contribution" name="content" rows="4" minlength="3" maxlength="5000"
+                                    required
+                                    placeholder="Share an idea, suggestion, or additional information..."></textarea>
+                                <div class="contribution-form-footer">
+                                    <span>
+                                        Your contribution will be visible to everyone who can view this note.
+                                    </span>
+                                    <button type="submit" class="button button-primary">
+                                        <i data-lucide="send"></i>
+                                        Add Contribution
+                                    </button>
+                                </div>
+                            </form>
+            </section>
+            <% } %>
+                <!-- ============================================= -->
+                <!-- OWNER ACTIONS -->
+                <!-- ============================================= -->
+                <% if (isOwner) { %>
+                    <div class="note-actions">
+                        <a href="/notes/<%= note._id %>/edit" class="button button-secondary">
+                            <i data-lucide="pencil"></i>
+                            Edit Note
+                        </a>
+                        <% if (!note.isPublished) { %>
+                            <form action="/notes/<%= note._id %>/publish" method="POST"
+                                onsubmit="return confirm('Publish this note? Other users will be able to view it and contribute to it.');">
+                                <button type="submit" class="button button-primary">
+                                    <i data-lucide="globe"></i>
+                                    Publish Note
+                                </button>
+                            </form>
+                            <% } %>
+                                <form action="/notes/<%= note._id %>/delete" method="POST"
+                                    onsubmit="return confirm('Are you sure you want to delete this note?');">
+                                    <button type="submit" class="button button-danger">
+                                        <i data-lucide="trash-2"></i>
+                                        Delete Note
+                                    </button>
+                                </form>
+                    </div>
+                    <% } %>
+    </section>
+    <%- include("partials/footer") %>
