@@ -67,7 +67,7 @@ NoteSpace/
 Clone the NoteSpace repository and navigate into the project folder:
 
 ```bash
-git clone YOUR_REPOSITORY_URL
+git clone https://github.com/calebbro77/NoteSpace.git
 cd NoteSpace
 ```
 
