@@ -1,25 +1,224 @@
 <%- include("partials/header") %>
+    
+<!-- ======================================================
+     HERO SECTION
+    ====================================================== -->
+
     <section class="hero">
-        <div class="hero-content">
-            <p class="eyebrow">
-                YOUR IDEAS. YOUR SPACE.
-            </p>
-            <h1>
-                Keep your thoughts private.
-                Share ideas when you're ready.
-            </h1>
-            <p class="hero-description">
-                NoteSpace is a simple place to create personal notes
-                and collaborate through published ideas.
-            </p>
-            <div class="hero-actions">
-                <a href="/register" class="button button-primary">
-                    Get Started
-                </a>
-                <a href="/login" class="button button-secondary">
-                    Log In
-                </a>
+        
+        <!-- Decorative Background -->
+        <div class="hero-glow hero-glow-one"></div>
+        <div class="hero-glow hero-glow-two"></div>
+        <!-- Hero Layout -->
+        <div class="hero-layout">
+            
+            <!-- Hero Content -->
+            <div class="hero-content">
+                <div class="hero-eyebrow">
+                    <i data-lucide="sparkles"></i>
+                    <span>NOT YOUR AVERAGE NOTES APP</span>
+                </div>
+                <h1>
+                    Your ideas deserve
+                    <span class="hero-highlight">room to grow.</span>
+                </h1>
+                <p class="hero-description">
+                    Write privately, shape your thoughts, and publish when
+                    you're ready for others to build on your ideas.
+                </p>
+                
+                <!-- Hero Actions -->
+                <div class="hero-actions">
+                    <a href="/register" class="button button-primary hero-primary">
+                        Create Your Space
+                        <i data-lucide="arrow-right"></i>
+                    </a>
+                    <a href="/login" class="button button-secondary">
+                        Log In
+                    </a>
+                </div>
+                
+                <!-- Product Highlights -->
+                <div class="hero-points">
+                    <div class="hero-point">
+                        <i data-lucide="lock"></i>
+                        <span>Private by default</span>
+                    </div>
+                    <div class="hero-point">
+                        <i data-lucide="image"></i>
+                        <span>Rich notes</span>
+                    </div>
+                    <div class="hero-point">
+                        <i data-lucide="users"></i>
+                        <span>Built for collaboration</span>
+                    </div>
+                </div>
             </div>
+            
+            <!-- ======================================================
+             PRODUCT PREVIEW
+            ====================================================== -->
+
+            <div class="hero-preview">
+                <div class="preview-window">
+                    <!-- Preview Window Header -->
+                    <div class="preview-topbar">
+                        <div class="preview-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <span class="preview-label">
+                            NoteSpace
+                        </span>
+                    </div>
+                    
+                    <!-- Example Note -->
+                    <div class="preview-note">
+                        <div class="preview-note-meta">
+                            <span class="preview-private">
+                                <i data-lucide="lock"></i>
+                                Private
+                            </span>
+                            <span>Just now</span>
+                        </div>
+                        <h2>Ideas for my next project</h2>
+                        <p>
+                            Build something that combines practical
+                            problem solving with a space for people
+                            to share and improve ideas.
+                        </p>
+                        
+                        <!-- Example Note Checklist -->
+                        <div class="preview-list">
+                            <div>
+                                <span class="preview-check">
+                                    <i data-lucide="check"></i>
+                                </span>
+                                Create a clean workspace
+                            </div>
+                            <div>
+                                <span class="preview-check">
+                                    <i data-lucide="check"></i>
+                                </span>
+                                Add rich text and images
+                            </div>
+                            <div>
+                                <span class="preview-check">
+                                    <i data-lucide="check"></i>
+                                </span>
+                                Publish when it's ready
+                            </div>
+                        </div>
+                        
+                        <!-- Example Publish Action -->
+                        <div class="preview-publish">
+                            <div>
+                                <span class="preview-publish-label">
+                                    Ready for feedback?
+                                </span>
+                                <small>
+                                    Share your idea with the community.
+                                </small>
+                            </div>
+                            <span class="preview-publish-button">
+                                <i data-lucide="globe"></i>
+                                Publish
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Floating Collaboration Card -->
+                <div class="floating-card floating-card-one">
+                    <span class="floating-icon">
+                        <i data-lucide="users"></i>
+                    </span>
+                    <div>
+                        <strong>Collaborate</strong>
+                        <small>Build on shared ideas</small>
+                    </div>
+                </div>
+                
+                <!-- Floating Privacy Card -->
+                <div class="floating-card floating-card-two">
+                    <span class="floating-icon">
+                        <i data-lucide="shield-check"></i>
+                    </span>
+                    <div>
+                        <strong>Your space</strong>
+                        <small>Private until you publish</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll to Features -->
+        <a href="#how-it-works" class="hero-scroll">
+            <span>See how it works</span>
+            <i data-lucide="arrow-down"></i>
+        </a>
+    </section>
+    
+    <!-- ======================================================
+     HOW IT WORKS
+    ====================================================== -->
+
+    <section class="home-features" id="how-it-works">
+        <!-- Section Heading -->
+        <div class="home-features-heading">
+            <p class="eyebrow">
+                FROM THOUGHT TO CONVERSATION
+            </p>
+            <h2>
+                Ideas don't have to stop when you write them down.
+            </h2>
+            <p>
+                NoteSpace gives your notes somewhere to go when
+                you're ready to share them.
+            </p>
+        </div>
+        
+        <!-- Feature Cards -->
+        <div class="feature-grid">
+            <!-- Write -->
+            <article class="feature-card">
+                <span class="feature-number">01</span>
+                <div class="feature-icon">
+                    <i data-lucide="pen-line"></i>
+                </div>
+                <h3>Write</h3>
+                <p>
+                    Capture ideas privately with rich formatting
+                    and images.
+                </p>
+            </article>
+            
+            <!-- Publish -->
+            <article class="feature-card">
+                <span class="feature-number">02</span>
+                <div class="feature-icon">
+                    <i data-lucide="globe"></i>
+                </div>
+                <h3>Publish</h3>
+                <p>
+                    Choose when an idea is ready to leave your
+                    private workspace.
+                </p>
+            </article>
+            
+            <!-- Collaborate -->
+            <article class="feature-card">
+                <span class="feature-number">03</span>
+                <div class="feature-icon">
+                    <i data-lucide="messages-square"></i>
+                </div>
+                <h3>Collaborate</h3>
+                <p>
+                    Let other NoteSpace users contribute new
+                    perspectives to published notes.
+                </p>
+            </article>
         </div>
     </section>
     <%- include("partials/footer") %>

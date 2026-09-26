@@ -1,9 +1,19 @@
 <%- include("partials/header") %>
     <section class="error-page">
         <div class="error-card">
+
+            <!-- ============================================= -->
+            <!-- ERROR ICON -->
+            <!-- ============================================= -->
+
+            <div class="error-icon">
+                <i data-lucide="triangle-alert"></i>
+            </div>
+
             <!-- ============================================= -->
             <!-- ERROR MESSAGE -->
             <!-- ============================================= -->
+
             <p class="eyebrow">
                 SOMETHING WENT WRONG
             </p>
@@ -11,16 +21,18 @@
                 <%= message %>
             </h1>
             <% if (user) { %>
-                <p>
-                    Return to your dashboard to continue working with your notes.
+                <p class="error-description">
+                    We hit a snag, but your workspace is still waiting for you.
+                    Head back to your dashboard and try again.
                 </p>
                 <a href="/dashboard" class="button button-primary">
                     <i data-lucide="arrow-left"></i>
                     Back to Dashboard
                 </a>
                 <% } else { %>
-                    <p>
-                        Return to the home page and try again.
+                    <p class="error-description">
+                        Something didn't go as planned.
+                        Head back home and try again.
                     </p>
                     <a href="/" class="button button-primary">
                         <i data-lucide="arrow-left"></i>

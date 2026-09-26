@@ -83,6 +83,19 @@ app.use("/api/notes", noteRoutes);
 app.use("/", pageRoutes);
 
 // ======================================================
+// 404 - ROUTE NOT FOUND
+// ======================================================
+
+// Requests that reach this point did not
+// match any registered route.
+app.use((req, res, next) => {
+  const error = new Error("Page not found.");
+  error.status = 404;
+
+  next(error);
+});
+
+// ======================================================
 // GLOBAL ERROR HANDLER
 // ======================================================
 

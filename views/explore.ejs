@@ -1,24 +1,29 @@
 <%- include("partials/header") %>
     <section class="explore-page">
+
         <!-- ============================================= -->
         <!-- PAGE HEADER -->
         <!-- ============================================= -->
+
         <div class="page-heading">
             <div>
                 <p class="eyebrow">
                     COMMUNITY
                 </p>
                 <h1>
-                    Explore Notes
+                    See what others are building.
                 </h1>
                 <p class="page-description">
-                    Discover ideas shared by the NoteSpace community.
+                    See what others are thinking, discover new perspectives,
+                    and add your voice to the conversation.
                 </p>
             </div>
+
         </div>
         <!-- ============================================= -->
         <!-- PUBLISHED NOTES -->
         <!-- ============================================= -->
+
         <% if (notes.length===0) { %>
             <!-- Empty state -->
             <div class="empty-state">
@@ -35,36 +40,71 @@
                 </a>
             </div>
             <% } else { %>
+
+                <!-- ============================================= -->
+                <!-- COMMUNITY NOTES -->
+                <!-- ============================================= -->
+
+                <div class="explore-section-heading">
+                    <h2>
+                        Community Notes
+                    </h2>
+                    <span class="explore-note-count">
+                        <%= notes.length %>
+                            <%= notes.length===1 ? "note" : "notes" %>
+                    </span>
+                </div>
                 <!-- Published note grid -->
-                <div class="notes-grid">
+                <div class="notes-grid explore-notes-grid">
                     <% notes.forEach((note)=> { %>
-                        <article class="note-card">
+                        <article class="note-card explore-note-card">
+
+                            <!-- Card header -->
                             <div class="note-card-header">
+
                                 <span class="status-badge published">
                                     <i data-lucide="globe"></i>
                                     Published
                                 </span>
                                 <span class="note-author">
-                                    By <%= note.owner.username %>
+                                    <i data-lucide="user"></i>
+                                    <%= note.owner.username %>
                                 </span>
                             </div>
-                            <h2>
-                                <%= note.title %>
-                            </h2>
-                            <p class="note-preview">
-                                <%= note.preview.length> 160
-                                    ? note.preview.substring(0, 160) + "..."
-                                    : note.preview
-                                    %>
-                            </p>
-                            <div class="note-card-footer">
+
+                            <!-- Note content -->
+                            <div class="explore-note-content">
+
+                                <h3>
+                                    <%= note.title %>
+                                </h3>
+                                <p class="note-preview">
+                                    <%= note.preview.length> 160
+                                        ? note.preview.substring(0, 160) + "..."
+                                        : note.preview
+                                        %>
+                                </p>
+                            </div>
+
+                            <!-- Community activity -->
+                            <div class="explore-note-activity">
                                 <span>
+                                    <i data-lucide="messages-square"></i>
+                                    <%= note.contributions.length %>
+                                        <%= note.contributions.length===1 ? "contribution" : "contributions" %>
+                                </span>
+                            </div>
+
+                            <!-- Card footer -->
+                            <div class="note-card-footer">
+                                <span class="note-updated">
+                                    <i data-lucide="clock-3"></i>
                                     Updated
                                     <%= note.updatedAt.toLocaleDateString() %>
                                 </span>
                                 <a href="/notes/<%= note._id %>" class="note-link">
-                                    Open Note
-                                    <i data-lucide="arrow-right"></i>
+                                    Join the conversation
+                                    <i data-lucide="arrow-up-right"></i>
                                 </a>
                             </div>
                         </article>

@@ -1,69 +1,185 @@
 <%- include("partials/header") %>
-  <section class="dashboard">
-    <!-- ============================================= -->
-    <!-- DASHBOARD HEADER -->
-    <!-- ============================================= -->
-    <div class="dashboard-header">
-      <div>
-        <p class="eyebrow">
-          YOUR WORKSPACE
-        </p>
+
+  <!-- ======================================================
+     DASHBOARD
+====================================================== -->
+
+  <section class="dashboard dashboard-modern">
+
+    <!-- ======================================================
+         DASHBOARD HERO
+    ====================================================== -->
+
+    <div class="dashboard-hero">
+
+      <!-- Decorative Background -->
+      <div class="dashboard-glow"></div>
+
+      <!-- Welcome Content -->
+      <div class="dashboard-welcome">
+        <div class="dashboard-eyebrow">
+          <i data-lucide="layout-dashboard"></i>
+          <span>YOUR WORKSPACE</span>
+        </div>
         <h1>
-          Welcome back, <%= username %> 👋
+          Welcome back,
+          <span>
+            <%= username %>.
+          </span>
         </h1>
         <p>
-          Keep your thoughts organized and share ideas when you're ready.
+          Keep shaping your thoughts, or start something new.
         </p>
       </div>
-      <a href="/notes/new" class="button button-primary">
+
+      <!-- New Note Action -->
+      <a href="/notes/new" class="button button-primary dashboard-new-note">
         <i data-lucide="plus"></i>
         New Note
       </a>
     </div>
-    <!-- ============================================= -->
-    <!-- USER NOTES -->
-    <!-- ============================================= -->
-    <section class="notes-section">
-      <h2>
-        My Notes
-      </h2>
+
+    <!-- ======================================================
+         WORKSPACE OVERVIEW
+    ====================================================== -->
+
+    <div class="dashboard-stats">
+
+      <!-- Total Notes -->
+      <div class="dashboard-stat">
+        <span class="dashboard-stat-icon">
+          <i data-lucide="notebook-tabs"></i>
+        </span>
+        <div>
+          <strong>
+            <%= notes.length %>
+          </strong>
+          <span>Total Notes</span>
+        </div>
+      </div>
+
+      <!-- Published Notes -->
+      <div class="dashboard-stat">
+        <span class="dashboard-stat-icon published">
+          <i data-lucide="globe"></i>
+        </span>
+        <div>
+          <strong>
+            <%= notes.filter(note=> note.isPublished).length %>
+          </strong>
+          <span>Published</span>
+        </div>
+      </div>
+
+      <!-- Private Notes -->
+      <div class="dashboard-stat">
+        <span class="dashboard-stat-icon private">
+          <i data-lucide="lock"></i>
+        </span>
+        <div>
+          <strong>
+            <%= notes.filter(note=> !note.isPublished).length %>
+          </strong>
+          <span>Private</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================
+         USER NOTES
+    ====================================================== -->
+
+    <section class="notes-section dashboard-notes">
+
+      <!-- Notes Section Header -->
+      <div class="notes-section-header">
+        <div>
+          <p class="eyebrow">
+            YOUR IDEAS
+          </p>
+          <h2>
+            My Notes
+          </h2>
+        </div>
+        <% if (notes.length> 0) { %>
+          <span class="notes-count">
+            <%= notes.length %>
+              <%= notes.length===1 ? "note" : "notes" %>
+          </span>
+          <% } %>
+      </div>
       <% if (notes.length===0) { %>
-        <!-- Empty state -->
+
+        <!-- ======================================================
+                 EMPTY STATE
+            ====================================================== -->
+
         <div class="empty-notes">
-          <i data-lucide="notebook"></i>
+          <div class="empty-notes-icon">
+            <i data-lucide="notebook-pen"></i>
+          </div>
+          <p class="eyebrow">
+            A BLANK PAGE
+          </p>
           <h3>
-            No notes yet
+            Your workspace is ready.
           </h3>
           <p>
-            Create your first note to get started.
+            Capture your first idea and give it somewhere to grow.
           </p>
           <a href="/notes/new" class="button button-primary">
             <i data-lucide="plus"></i>
-            Create a Note
+            Create Your First Note
           </a>
         </div>
         <% } else { %>
-          <!-- Note grid -->
-          <div class="notes-grid">
+
+          <!-- ======================================================
+                 NOTE GRID
+            ====================================================== -->
+
+          <div class="notes-grid dashboard-notes-grid">
             <% notes.forEach((note)=> { %>
-              <article class="note-card">
-                <h3>
-                  <%= note.title %>
-                </h3>
-                <p class="note-preview">
-                  <%= note.preview.length> 160
-                    ? note.preview.substring(0, 160) + "..."
-                    : note.preview
-                    %>
-                </p>
+              <article class="note-card dashboard-note-card">
+
+                <!-- Note Status -->
+                <div class="dashboard-note-status">
+                  <% if (note.isPublished) { %>
+                    <span class="note-status published">
+                      <i data-lucide="globe"></i>
+                      Published
+                    </span>
+                    <% } else { %>
+                      <span class="note-status private">
+                        <i data-lucide="lock"></i>
+                        Private
+                      </span>
+                      <% } %>
+                </div>
+
+                <!-- Note Content -->
+                <div class="dashboard-note-content">
+                  <h3>
+                    <%= note.title %>
+                  </h3>
+                  <p class="note-preview">
+                    <%= note.preview.length> 160
+                      ? note.preview.substring(0, 160) + "..."
+                      : note.preview
+                      %>
+                  </p>
+                </div>
+
+                <!-- Note Footer -->
                 <div class="note-card-footer">
                   <small>
+                    <i data-lucide="clock-3"></i>
                     Updated
                     <%= note.updatedAt.toLocaleDateString() %>
                   </small>
-                  <a href="/notes/<%= note._id %>" class="note-link">
-                    Open Note
-                    <i data-lucide="arrow-right"></i>
+                  <a href="/notes/<%= note._id %>" class="note-link" aria-label="Open <%= note.title %>">
+                    Open
+                    <i data-lucide="arrow-up-right"></i>
                   </a>
                 </div>
               </article>

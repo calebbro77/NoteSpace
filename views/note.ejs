@@ -1,8 +1,10 @@
 <%- include("partials/header") %>
     <section class="note-page">
+
         <!-- ============================================= -->
         <!-- NOTE HEADER -->
         <!-- ============================================= -->
+
         <div class="note-page-header">
             <a href="<%= isOwner ? '/dashboard' : '/explore' %>" class="back-link">
                 <i data-lucide="arrow-left"></i>
@@ -20,42 +22,57 @@
                             Private
                         </span>
                         <% } %>
-                            <span>
-                                By <%= note.owner.username %>
+                            <span class="note-author">
+                                <i data-lucide="user"></i>
+                                <%= note.owner.username %>
+                            </span>
+                            <span class="note-updated">
+                                <i data-lucide="clock"></i>
+                                Updated <%= note.updatedAt.toLocaleDateString() %>
                             </span>
             </div>
         </div>
+
         <!-- ============================================= -->
         <!-- NOTE CONTENT -->
         <!-- ============================================= -->
+
         <article class="note-detail">
-            <h1>
-                <%= note.title %>
-            </h1>
-            <p class="note-date">
-                Last updated:
-                <%= note.updatedAt.toLocaleDateString() %>
-            </p>
+            <div class="note-detail-heading">
+                <p class="eyebrow">
+                    <%= note.isPublished ? "SHARED IDEA" : "PRIVATE NOTE" %>
+                </p>
+                <h1>
+                    <%= note.title %>
+                </h1>
+            </div>
             <div class="note-content">
                 <%- note.content %>
             </div>
         </article>
+
         <!-- ============================================= -->
         <!-- CONTRIBUTIONS -->
         <!-- ============================================= -->
+
         <% if (note.isPublished) { %>
             <section class="contributions-section">
                 <div class="contributions-heading">
                     <div>
                         <p class="eyebrow">
-                            COLLABORATION
+                            THE CONVERSATION
                         </p>
                         <h2>
-                            Contributions
+                            Build on this idea.
                         </h2>
+                        <p class="contributions-description">
+                            See what others have added, or contribute a perspective of your own.
+                        </p>
                     </div>
                     <span class="contribution-count">
+                        <i data-lucide="messages-square"></i>
                         <%= note.contributions.length %>
+                            <%= note.contributions.length===1 ? "contribution" : "contributions" %>
                     </span>
                 </div>
                 <% if (note.contributions.length===0) { %>
@@ -70,13 +87,20 @@
                             <% note.contributions.forEach((contribution)=> { %>
                                 <article class="contribution-card">
                                     <div class="contribution-meta">
-                                        <span class="contribution-author">
-                                            <i data-lucide="user"></i>
-                                            <%= contribution.contributor.username %>
-                                        </span>
-                                        <span>
-                                            <%= contribution.createdAt.toLocaleDateString() %>
-                                        </span>
+                                        <div class="contribution-user">
+                                            <span class="contribution-avatar">
+                                                <i data-lucide="user"></i>
+                                            </span>
+                                            <div>
+                                                <strong>
+                                                    <%= contribution.contributor.username %>
+                                                </strong>
+                                                <span>
+                                                    Contributed <%= contribution.createdAt.toLocaleDateString() %>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <i data-lucide="message-square" class="contribution-icon"></i>
                                     </div>
                                     <p class="contribution-content">
                                         <%= contribution.content %>
@@ -89,12 +113,22 @@
                             <!-- ADD CONTRIBUTION -->
                             <!-- =========================================== -->
                             <form action="/notes/<%= note._id %>/contributions" method="POST" class="contribution-form">
-                                <label for="contribution">
-                                    Add a contribution
-                                </label>
+                                <div class="contribution-form-heading">
+                                    <span class="contribution-form-icon">
+                                        <i data-lucide="pen-line"></i>
+                                    </span>
+                                    <div>
+                                        <label for="contribution">
+                                            Add to the conversation
+                                        </label>
+                                        <p>
+                                            Have another perspective? Build on the idea above.
+                                        </p>
+                                    </div>
+                                </div>
                                 <textarea id="contribution" name="content" rows="4" minlength="3" maxlength="5000"
                                     required
-                                    placeholder="Share an idea, suggestion, or additional information..."></textarea>
+                                    placeholder="What would you add to this idea?"></textarea>
                                 <div class="contribution-form-footer">
                                     <span>
                                         Your contribution will be visible to everyone who can view this note.

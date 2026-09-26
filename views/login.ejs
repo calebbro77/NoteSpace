@@ -1,56 +1,139 @@
 <%- include("partials/header") %>
-    <section class="auth-page">
-        <div class="auth-card">
-            <!-- ============================================= -->
-            <!-- LOGIN HEADER -->
-            <!-- ============================================= -->
-            <div class="auth-header">
-                <p class="eyebrow">
-                    WELCOME BACK
-                </p>
-                <h1>
-                    Log in to NoteSpace
-                </h1>
-                <p>
-                    Access your private notes and shared ideas.
-                </p>
-            </div>
-            <!-- ============================================= -->
-            <!-- ERROR MESSAGE -->
-            <!-- ============================================= -->
-            <% if (typeof error !=="undefined" ) { %>
-                <div class="form-error" role="alert">
-                    <%= error %>
-                </div>
-                <% } %>
-                    <!-- ============================================= -->
-                    <!-- LOGIN FORM -->
-                    <!-- ============================================= -->
-                    <form class="auth-form" action="/login" method="POST">
-                        <div class="form-group">
-                            <label for="username">
-                                Username
-                            </label>
-                            <input type="text" id="username" name="username" placeholder="Enter your username"
-                                autocomplete="username" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="password">
-                                Password
-                            </label>
-                            <input type="password" id="password" name="password" placeholder="Enter your password"
-                                autocomplete="current-password" required>
-                        </div>
-                        <button type="submit" class="button button-primary">
-                            Log In
-                        </button>
-                    </form>
-                    <p class="auth-switch">
-                        Don't have an account?
-                        <a href="/register">
-                            Create one
-                        </a>
+
+    <!-- ======================================================
+     LOGIN PAGE
+====================================================== -->
+
+    <section class="auth-page auth-page-modern">
+        <div class="auth-layout">
+
+            <!-- ======================================================
+             BRAND PANEL
+        ====================================================== -->
+
+            <div class="auth-showcase">
+
+                <!-- Decorative Background -->
+                <div class="auth-glow auth-glow-one"></div>
+                <div class="auth-glow auth-glow-two"></div>
+
+                <!-- Showcase Content -->
+                <div class="auth-showcase-content">
+                    <div class="auth-showcase-icon">
+                        <i data-lucide="sparkles"></i>
+                    </div>
+                    <p class="eyebrow">
+                        YOUR SPACE IS WAITING
                     </p>
+                    <h1>
+                        Pick up where
+                        <span>your ideas left off.</span>
+                    </h1>
+                    <p class="auth-showcase-description">
+                        Return to your private workspace, keep shaping
+                        your notes, or see what the community is building.
+                    </p>
+
+                    <!-- Product Benefits -->
+                    <div class="auth-benefits">
+                        <div class="auth-benefit">
+                            <span>
+                                <i data-lucide="lock"></i>
+                            </span>
+                            <div>
+                                <strong>Private workspace</strong>
+                                <small>Your notes stay yours until you publish.</small>
+                            </div>
+                        </div>
+                        <div class="auth-benefit">
+                            <span>
+                                <i data-lucide="pen-line"></i>
+                            </span>
+                            <div>
+                                <strong>Keep creating</strong>
+                                <small>Rich text and images give ideas room to grow.</small>
+                            </div>
+                        </div>
+                        <div class="auth-benefit">
+                            <span>
+                                <i data-lucide="users"></i>
+                            </span>
+                            <div>
+                                <strong>Join the conversation</strong>
+                                <small>Explore and contribute to published ideas.</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================================================
+             LOGIN FORM PANEL
+        ====================================================== -->
+
+            <div class="auth-form-panel">
+                <div class="auth-card auth-card-modern">
+
+                    <!-- Login Header -->
+                    <div class="auth-header">
+                        <p class="eyebrow">
+                            WELCOME BACK
+                        </p>
+                        <h2>
+                            Log in to NoteSpace
+                        </h2>
+                        <p>
+                            Enter your details to continue to your workspace.
+                        </p>
+                    </div>
+
+                    <!-- Error Message -->
+                    <% if (typeof error !=="undefined" ) { %>
+                        <div class="form-error" role="alert">
+                            <i data-lucide="circle-alert"></i>
+                            <span>
+                                <%= error %>
+                            </span>
+                        </div>
+                        <% } %>
+
+                            <!-- Login Form -->
+                            <form class="auth-form" action="/login" method="POST">
+                                <div class="form-group">
+                                    <label for="username">
+                                        Username
+                                    </label>
+                                    <div class="auth-input">
+                                        <i data-lucide="user"></i>
+                                        <input type="text" id="username" name="username"
+                                            placeholder="Enter your username" autocomplete="username" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">
+                                        Password
+                                    </label>
+                                    <div class="auth-input">
+                                        <i data-lucide="lock-keyhole"></i>
+                                        <input type="password" id="password" name="password"
+                                            placeholder="Enter your password" autocomplete="current-password" required>
+                                    </div>
+                                </div>
+                                <button type="submit" class="button button-primary auth-submit">
+                                    Log In
+                                    <i data-lucide="arrow-right"></i>
+                                </button>
+                            </form>
+
+                            <!-- Registration Link -->
+                            <p class="auth-switch">
+                                Don't have an account?
+                                <a href="/register">
+                                    Create your space
+                                </a>
+                            </p>
+                </div>
+            </div>
         </div>
     </section>
     <%- include("partials/footer") %>

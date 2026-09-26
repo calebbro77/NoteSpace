@@ -1,68 +1,153 @@
 <%- include("partials/header") %>
-  <section class="auth-page">
-    <div class="auth-card">
-      <!-- ============================================= -->
-      <!-- REGISTRATION HEADER -->
-      <!-- ============================================= -->
-      <div class="auth-header">
-        <p class="eyebrow">
-          CREATE YOUR ACCOUNT
-        </p>
-        <h1>
-          Join NoteSpace
-        </h1>
-        <p>
-          Create private notes and share ideas with others.
-        </p>
-      </div>
-      <!-- ============================================= -->
-      <!-- ERROR MESSAGE -->
-      <!-- ============================================= -->
-      <% if (typeof error !=="undefined" ) { %>
-        <div class="form-error" role="alert">
-          <%= error %>
-        </div>
-        <% } %>
-          <!-- ============================================= -->
-          <!-- REGISTRATION FORM -->
-          <!-- ============================================= -->
-          <form class="auth-form" action="/register" method="POST">
-            <div class="form-group">
-              <label for="username">
-                Username
-              </label>
-              <input type="text" id="username" name="username" placeholder="Choose a username" autocomplete="username"
-                minlength="3" maxlength="50" required>
-            </div>
-            <div class="form-group">
-              <label for="email">
-                Email
-              </label>
-              <input type="email" id="email" name="email" placeholder="Enter your email" autocomplete="email"
-                minlength="5" maxlength="100" required>
-            </div>
-            <div class="form-group">
-              <label for="password">
-                Password
-              </label>
-              <input type="password" id="password" name="password" placeholder="Create a password"
-                autocomplete="new-password" minlength="8" pattern="(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}"
-                title="Password must be at least 8 characters long and contain at least one letter and one number."
-                required>
-              <p class="form-hint">
-                At least 8 characters with one letter and one number.
-              </p>
-            </div>
-            <button type="submit" class="button button-primary">
-              Create Account
-            </button>
-          </form>
-          <p class="auth-switch">
-            Already have an account?
-            <a href="/login">
-              Log in
-            </a>
+
+  <!-- ======================================================
+     REGISTRATION PAGE
+====================================================== -->
+
+  <section class="auth-page auth-page-modern">
+    <div class="auth-layout">
+
+      <!-- ======================================================
+             BRAND PANEL
+        ====================================================== -->
+      <div class="auth-showcase">
+
+        <!-- Decorative Background -->
+        <div class="auth-glow auth-glow-one"></div>
+        <div class="auth-glow auth-glow-two"></div>
+
+        <!-- Showcase Content -->
+        <div class="auth-showcase-content">
+          <div class="auth-showcase-icon">
+            <i data-lucide="lightbulb"></i>
+          </div>
+          <p class="eyebrow">
+            START YOUR SPACE
           </p>
+          <h1>
+            Give your ideas
+            <span>somewhere to grow.</span>
+          </h1>
+          <p class="auth-showcase-description">
+            Start privately, develop your thoughts, and decide
+            when an idea is ready to become a conversation.
+          </p>
+
+          <!-- Product Benefits -->
+          <div class="auth-benefits">
+            <div class="auth-benefit">
+              <span>
+                <i data-lucide="lock"></i>
+              </span>
+              <div>
+                <strong>Start private</strong>
+                <small>Your workspace belongs to you.</small>
+              </div>
+            </div>
+            <div class="auth-benefit">
+              <span>
+                <i data-lucide="image"></i>
+              </span>
+              <div>
+                <strong>Build richer notes</strong>
+                <small>Format your thoughts and add images.</small>
+              </div>
+            </div>
+            <div class="auth-benefit">
+              <span>
+                <i data-lucide="globe"></i>
+              </span>
+              <div>
+                <strong>Publish when you're ready</strong>
+                <small>Turn a private thought into a shared idea.</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================================================
+             REGISTRATION FORM PANEL
+        ====================================================== -->
+
+      <div class="auth-form-panel">
+        <div class="auth-card auth-card-modern">
+
+          <!-- Registration Header -->
+          <div class="auth-header">
+            <p class="eyebrow">
+              CREATE YOUR ACCOUNT
+            </p>
+            <h2>
+              Join NoteSpace
+            </h2>
+            <p>
+              Create your account and start your workspace.
+            </p>
+          </div>
+
+          <!-- Error Message -->
+          <% if (typeof error !=="undefined" ) { %>
+            <div class="form-error" role="alert">
+              <i data-lucide="circle-alert"></i>
+              <span>
+                <%= error %>
+              </span>
+            </div>
+            <% } %>
+
+              <!-- Registration Form -->
+              <form class="auth-form" action="/register" method="POST">
+                <div class="form-group">
+                  <label for="username">
+                    Username
+                  </label>
+                  <div class="auth-input">
+                    <i data-lucide="user"></i>
+                    <input type="text" id="username" name="username" placeholder="Choose a username"
+                      autocomplete="username" minlength="3" maxlength="50" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="email">
+                    Email
+                  </label>
+                  <div class="auth-input">
+                    <i data-lucide="mail"></i>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" autocomplete="email"
+                      minlength="5" maxlength="100" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="password">
+                    Password
+                  </label>
+                  <div class="auth-input">
+                    <i data-lucide="lock-keyhole"></i>
+                    <input type="password" id="password" name="password" placeholder="Create a password"
+                      autocomplete="new-password" minlength="8" pattern="(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}"
+                      title="Password must be at least 8 characters long and contain at least one letter and one number."
+                      required>
+                  </div>
+                  <p class="form-hint">
+                    At least 8 characters with one letter and one number.
+                  </p>
+                </div>
+                <button type="submit" class="button button-primary auth-submit">
+                  Create Account
+                  <i data-lucide="arrow-right"></i>
+                </button>
+              </form>
+
+              <!-- Login Link -->
+              <p class="auth-switch">
+                Already have an account?
+                <a href="/login">
+                  Log in
+                </a>
+              </p>
+        </div>
+      </div>
     </div>
   </section>
   <%- include("partials/footer") %>

@@ -6,6 +6,9 @@ const errorHandler = (error, req, res, next) => {
   // Log the full error for development/debugging.
   console.error(error);
 
+  // Determine whether this request belongs to the API.
+  const isApiRequest = req.originalUrl.startsWith("/api/");
+
 
   // ====================================================
   // FILE UPLOAD ERRORS
@@ -62,11 +65,36 @@ const errorHandler = (error, req, res, next) => {
 
 
   // ====================================================
-  // FALLBACK SERVER ERROR
+  // DETERMINE STATUS CODE
   // ====================================================
 
-  return res.status(500).json({
-    message: "Internal server error",
+  const statusCode =
+    error.status || error.statusCode || 500;
+
+
+  // ====================================================
+  // API ERROR RESPONSE
+  // ====================================================
+
+  if (isApiRequest) {
+    return res.status(statusCode).json({
+      message:
+        statusCode === 500
+          ? "Internal server error"
+          : error.message,
+    });
+  }
+
+
+  // ====================================================
+  // WEBSITE ERROR RESPONSE
+  // ====================================================
+
+  return res.status(statusCode).render("error", {
+    message:
+      statusCode === 500
+        ? "Something went wrong."
+        : error.message,
   });
 };
 

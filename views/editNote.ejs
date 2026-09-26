@@ -1,31 +1,41 @@
 <%- include("partials/header") %>
     <section class="note-form-page">
         <div class="note-form-card">
+
             <!-- ============================================= -->
             <!-- PAGE HEADER -->
             <!-- ============================================= -->
+
             <div class="note-form-header">
+                <div class="note-form-icon">
+                    <i data-lucide="pencil"></i>
+                </div>
                 <p class="eyebrow">
                     EDIT NOTE
                 </p>
                 <h1>
-                    Edit Your Note
+                    Keep shaping your idea.
                 </h1>
                 <p>
-                    Make your changes and save when you're finished.
+                    Refine your writing, add details, and save when
+                    you're happy with where it's going.
                 </p>
             </div>
+
             <!-- ============================================= -->
             <!-- ERROR MESSAGE -->
             <!-- ============================================= -->
+
             <% if (error) { %>
                 <div class="form-error" role="alert">
                     <%= error %>
                 </div>
                 <% } %>
+
                     <!-- ============================================= -->
                     <!-- NOTE FORM -->
                     <!-- ============================================= -->
+
                     <form id="note-form" class="note-form" action="/notes/<%= note._id %>/edit" method="POST">
                         <div class="form-group">
                             <label for="title">
@@ -38,19 +48,38 @@
                             <label for="editor">
                                 Content
                             </label>
+
+                            <!-- ============================================= -->
+                            <!-- EDITOR FEATURES -->
+                            <!-- ============================================= -->
+
+                            <div class="editor-info">
+                                <span>
+                                    <i data-lucide="type"></i>
+                                    Rich text
+                                </span>
+                                <span>
+                                    <i data-lucide="image"></i>
+                                    Images supported
+                                </span>
+                            </div>
                             <div id="editor"></div>
                             <input type="hidden" id="content" name="content">
+
                             <!-- Sanitized note content used to initialize Quill -->
                             <div id="editor-data" hidden><%- note.content %></div>
                         </div>
+
                         <!-- =========================================== -->
                         <!-- FORM ACTIONS -->
                         <!-- =========================================== -->
+
                         <div class="note-form-actions">
                             <a href="/notes/<%= note._id %>" class="button button-secondary">
                                 Cancel
                             </a>
                             <button type="submit" class="button button-primary">
+                                <i data-lucide="check"></i>
                                 Save Changes
                             </button>
                         </div>
