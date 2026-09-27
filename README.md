@@ -54,12 +54,14 @@ NoteSpace/
 ├── models/          # Mongoose data models
 ├── public/          # Static CSS and assets
 ├── routes/          # API and website routes
+├── seed/            # Optional demo database seeder
 ├── utils/           # Note sanitization and helper functions
 ├── views/           # EJS templates
 ├── .env.example     # Example environment configuration
 ├── index.js         # Application entry point
 └── package.json
 ```
+
 ## Installation
 
 ### 1. Clone the Repository
@@ -97,15 +99,29 @@ Replace the example values with your own MongoDB connection string and JWT secre
 
 Make sure MongoDB is running and accessible using the connection string provided in `MONGODB_URI`.
 
-NoteSpace does not require pre-existing users or notes. MongoDB collections will be populated as users register and create notes.
+NoteSpace does not require pre-existing users or notes. You can start with an empty database and create data through the application, or optionally use the included demo seeder described below.
 
-### 5. Start the Application
+
+### 5. Optional: Seed Demo Data
+
+NoteSpace includes an optional demo seeder for populating the database with
+sample data for development and testing.
+
+After configuring the `.env` file and MongoDB connection, run:
+
+```bash
+npm run seed:demo
+```
+
+The demo seeder is optional and is intended to provide sample data for development and testing.
+
+### 6. Start the Application
 
 For development with Nodemon:
 
 ```bash
 npm run dev
-```
+````
 
 Or start the application normally:
 
@@ -159,23 +175,23 @@ A JWT can be obtained by logging in through the `/api/auth/login` endpoint.
 
 ### Authentication Routes
 
-| Method | Endpoint | Description |
-| --- | --- | --- |
-| POST | `/api/auth/register` | Register a new user |
-| POST | `/api/auth/login` | Log in and receive a JWT |
+| Method | Endpoint             | Description              |
+| ------ | -------------------- | ------------------------ |
+| POST   | `/api/auth/register` | Register a new user      |
+| POST   | `/api/auth/login`    | Log in and receive a JWT |
 
 ### Note Routes
 
-| Method | Endpoint | Description |
-| --- | --- | --- |
-| GET | `/api/notes` | Get all notes owned by the authenticated user |
-| POST | `/api/notes` | Create a new note |
-| GET | `/api/notes/published` | Get published notes |
-| GET | `/api/notes/:id` | Get a note by ID |
-| PUT | `/api/notes/:id` | Update an owned note |
-| DELETE | `/api/notes/:id` | Delete an owned note |
-| PATCH | `/api/notes/:id/publish` | Publish an owned note |
-| POST | `/api/notes/:id/contributions` | Add a contribution to a published note |
+| Method | Endpoint                       | Description                                   |
+| ------ | ------------------------------ | --------------------------------------------- |
+| GET    | `/api/notes`                   | Get all notes owned by the authenticated user |
+| POST   | `/api/notes`                   | Create a new note                             |
+| GET    | `/api/notes/published`         | Get published notes                           |
+| GET    | `/api/notes/:id`               | Get a note by ID                              |
+| PUT    | `/api/notes/:id`               | Update an owned note                          |
+| DELETE | `/api/notes/:id`               | Delete an owned note                          |
+| PATCH  | `/api/notes/:id/publish`       | Publish an owned note                         |
+| POST   | `/api/notes/:id/contributions` | Add a contribution to a published note        |
 
 ### Example Registration Request
 
